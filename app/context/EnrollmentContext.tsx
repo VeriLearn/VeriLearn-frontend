@@ -10,11 +10,29 @@ interface EnrollmentContextValue {
 
 const EnrollmentContext = createContext<EnrollmentContextValue | null>(null);
 
+const STORAGE_KEY = "verilearn_enrolled";
+
+function readEnrolled(): Set<number> {
+  if (typeof window === "undefined") return new Set();
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? new Set(JSON.parse(raw) as number[]) : new Set();
+  } catch {
+    return new Set();
+  }
+}
+
 export function EnrollmentProvider({ children }: { children: ReactNode }) {
-  const [enrolled, setEnrolled] = useState<Set<number>>(new Set([1, 2, 3]));
+  const [enrolled, setEnrolled] = useState<Set<number>>(readEnrolled);
 
   const enroll = useCallback((courseId: number) => {
-    setEnrolled((prev) => new Set(prev).add(courseId));
+    setEnrolled((prev) => {
+      const next = new Set(prev).add(courseId);
+      if (typeof window !== "undefined") {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify([...next]));
+      }
+      return next;
+    });
   }, []);
 
   const isEnrolled = useCallback((courseId: number) => enrolled.has(courseId), [enrolled]);
