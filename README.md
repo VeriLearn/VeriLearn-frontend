@@ -162,6 +162,8 @@ The `BASE_URL` defaults to `http://localhost:3000` and can be overridden via the
 | `spike` | ramping-vus | 0→100 in 10s, hold 1m, drop in 10s | Sudden traffic burst (e.g. a viral event) |
 | `soak` | constant-vus | 10 VUs for 2h | Long-running test to surface memory leaks or degradation over time |
 
+In CI, `K6_SCENARIO=ci` is set automatically, which skips the spike and soak scenarios to keep pipeline runs under 15 minutes.
+
 ### Thresholds
 
 The test fails if any threshold is breached:
@@ -227,6 +229,7 @@ If any k6 threshold is breached, the action exits with a non-zero code and the P
 |---|---|---|
 | `BASE_URL` | `http://localhost:3000` | Target URL for the k6 load test |
 | `NODE_ENV` | `development` | Set to `production` for optimised builds |
+| `K6_SCENARIO` | _(unset — all scenarios)_ | Set to `ci` to run only smoke, load, and stress (skips spike and soak) |
 
 ---
 

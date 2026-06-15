@@ -9,6 +9,11 @@ services:
       INFLUXDB_DB: k6
     volumes:
       - influxdb-data:/var/lib/influxdb
+    healthcheck:
+      test: ["CMD", "influx", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   grafana:
     image: grafana/grafana:latest
@@ -32,7 +37,8 @@ services:
     environment:
       BASE_URL: ${BASE_URL:-http://host.docker.internal:3000}
     depends_on:
-      - influxdb
+      influxdb:
+        condition: service_healthy
 
 volumes:
   influxdb-data:
