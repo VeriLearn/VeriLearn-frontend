@@ -1,17 +1,17 @@
 "use client";
 
+import Link from "next/link";
 import { useAuth } from "../context/AuthContext";
+import { useEnrollment } from "../context/EnrollmentContext";
+import { useProgress } from "../context/ProgressContext";
+import { courses } from "../lib/courses";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const enrolled = [
-  { id: 1, title: "Intro to TypeScript", progress: 72 },
-  { id: 2, title: "Next.js App Router", progress: 40 },
-  { id: 3, title: "Tailwind CSS Fundamentals", progress: 100 },
-];
-
 export default function ProfilePage() {
   const { user, loading } = useAuth();
+  const { enrolled } = useEnrollment();
+  const { courseProgress } = useProgress();
   const router = useRouter();
 
   useEffect(() => {
@@ -22,6 +22,10 @@ export default function ProfilePage() {
     return <div className="flex flex-1 items-center justify-center text-zinc-400">Loading…</div>;
   }
 
+  const enrolledCourses = courses.filter((c) => enrolled.has(c.id));
+  const totalDone = enrolledCourses.reduce((sum, c) =>
+    sum + Math.round((courseProgress(c.id, c.lessons.length) / 100) * c.lessons.length), 0);
+  const certificates = enrolledCourses.filter((c) => courseProgress(c.id, c.lessons.length) === 100).length;
   const initials = user.name.slice(0, 2).toUpperCase();
 
   return (
@@ -39,16 +43,42 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      {/* Enrolled courses summary */}
-      <h2 className="mb-4 font-semibold text-zinc-900 dark:text-white">Enrolled Courses</h2>
-      <div className="space-y-3">
-        {enrolled.map((c) => (
-          <div key={c.id} className="flex items-center justify-between rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-950 px-4 py-3">
-            <span className="text-sm text-zinc-700 dark:text-zinc-300">{c.title}</span>
-            <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400">{c.progress}%</span>
+      {/* Summary stats */}
+      <div className="mb-8 grid grid-cols-3 gap-4">
+        {[
+          { label: "Enrolled", value: enrolledCourses.length },
+          { label: "Lessons done", value: totalDone },
+          { label: "Certificates", value: certificates },
+        ].map(({ label, value }) => (
+          <div key={label} className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-950 p-4 text-center">
+            <div className="text-2xl font-bold text-zinc-900 dark:text-white">{value}</div>
+            <div className="mt-1 text-xs text-zinc-500">{label}</div>
           </div>
         ))}
       </div>
+
+      {/* Enrolled courses */}
+      <h2 className="mb-4 font-semibold text-zinc-900 dark:text-white">Enrolled Courses</h2>
+      {enrolledCourses.length === 0 ? (
+        <div className="rounded-xl border border-dashed border-zinc-200 dark:border-zinc-700 p-10 text-center">
+          <p className="text-sm text-zinc-500">You haven't enrolled in any courses yet.</p>
+          <Link href="/courses" className="mt-3 inline-block text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">
+            Browse courses →
+          </Link>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {enrolledCourses.map((c) => {
+            const progress = courseProgress(c.id, c.lessons.length);
+            return (
+              <div key={c.id} className="flex items-center justify-between rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-950 px-4 py-3">
+                <span className="text-sm text-zinc-700 dark:text-zinc-300">{c.title}</span>
+                <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400">{progress}%</span>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

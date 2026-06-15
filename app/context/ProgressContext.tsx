@@ -12,13 +12,29 @@ interface ProgressContextValue {
 
 const ProgressContext = createContext<ProgressContextValue | null>(null);
 
+const STORAGE_KEY = "verilearn_progress";
+
+function readCompleted(): Set<string> {
+  if (typeof window === "undefined") return new Set();
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? new Set(JSON.parse(raw) as string[]) : new Set();
+  } catch {
+    return new Set();
+  }
+}
+
 export function ProgressProvider({ children }: { children: ReactNode }) {
-  const [completed, setCompleted] = useState<Set<string>>(
-    new Set(["1-0", "1-1", "1-2", "1-3", "2-0", "2-1", "2-2", "3-0", "3-1", "3-2", "3-3", "3-4"])
-  );
+  const [completed, setCompleted] = useState<Set<string>>(readCompleted);
 
   const markComplete = useCallback((courseId: number, lessonIndex: number) => {
-    setCompleted((prev) => new Set(prev).add(`${courseId}-${lessonIndex}`));
+    setCompleted((prev) => {
+      const next = new Set(prev).add(`${courseId}-${lessonIndex}`);
+      if (typeof window !== "undefined") {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify([...next]));
+      }
+      return next;
+    });
   }, []);
 
   const isComplete = useCallback(
