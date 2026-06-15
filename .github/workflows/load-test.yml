@@ -33,6 +33,7 @@ jobs:
         uses: grafana/k6-action@v0.3.1
         with:
           filename: load-testing/script.js
+          flags: --out json=load-testing/results.json
         env:
           BASE_URL: http://localhost:3000
 
