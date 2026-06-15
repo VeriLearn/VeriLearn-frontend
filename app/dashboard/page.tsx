@@ -64,12 +64,17 @@ export default function DashboardPage() {
                 className="group flex items-center gap-5 rounded-2xl border border-white/8 bg-white/5 p-5 transition-all hover:border-indigo-500/30 hover:bg-white/[0.08]">
                 {/* Ring */}
                 <div className="relative flex h-12 w-12 shrink-0 items-center justify-center">
-                  <svg className="absolute inset-0 -rotate-90" viewBox="0 0 36 36">
+                  <svg
+                    role="img"
+                    aria-label={`${progress}% complete`}
+                    className="absolute inset-0 -rotate-90"
+                    viewBox="0 0 36 36"
+                  >
                     <circle cx="18" cy="18" r="15" fill="none" stroke="#ffffff08" strokeWidth="2.5" />
                     <circle cx="18" cy="18" r="15" fill="none" stroke="#6366f1" strokeWidth="2.5"
                       strokeDasharray={`${(progress / 100) * 94} 94`} strokeLinecap="round" />
                   </svg>
-                  <span className="text-xs font-bold text-white">{progress}%</span>
+                  <span aria-hidden className="text-xs font-bold text-white">{progress}%</span>
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="font-medium text-white group-hover:text-indigo-300 transition-colors truncate">{course.title}</div>

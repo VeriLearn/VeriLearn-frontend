@@ -67,17 +67,17 @@ export default function SignupPage() {
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-zinc-300">Full name</label>
             <input id="name" name="name" type="text" autoComplete="name" className={inputCls(!!errors.name)} placeholder="Jane Smith" />
-            {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name}</p>}
+            {errors.name && <p role="alert" className="mt-1 text-xs text-red-400">{errors.name}</p>}
           </div>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-zinc-300">Email</label>
             <input id="email" name="email" type="email" autoComplete="email" className={inputCls(!!errors.email)} placeholder="you@example.com" />
-            {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email}</p>}
+            {errors.email && <p role="alert" className="mt-1 text-xs text-red-400">{errors.email}</p>}
           </div>
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-zinc-300">Password</label>
             <input id="password" name="password" type="password" autoComplete="new-password" className={inputCls(!!errors.password)} placeholder="At least 8 characters" />
-            {errors.password && <p className="mt-1 text-xs text-red-400">{errors.password}</p>}
+            {errors.password && <p role="alert" className="mt-1 text-xs text-red-400">{errors.password}</p>}
           </div>
           <button type="submit" disabled={loading}
             className="w-full rounded-xl bg-indigo-600 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition hover:bg-indigo-500 disabled:opacity-60">

@@ -168,6 +168,23 @@ function CoursesContent() {
 }
 
 export default function CoursesPage() {
+  const [selectedLevels, setSelectedLevels] = useState<Set<string>>(new Set());
+  const [selectedTopics, setSelectedTopics] = useState<Set<string>>(new Set());
+  const [search, setSearch] = useState("");
+
+  function toggle(set: Set<string>, value: string): Set<string> {
+    const next = new Set(set);
+    if (next.has(value)) { next.delete(value); } else { next.add(value); }
+    return next;
+  }
+
+  const filtered = courses.filter((c) => {
+    const matchLevel = selectedLevels.size === 0 || selectedLevels.has(c.tag);
+    const matchTopic = selectedTopics.size === 0 || selectedTopics.has(c.tag);
+    const matchSearch = search === "" || c.title.toLowerCase().includes(search.toLowerCase());
+    return matchLevel && matchTopic && matchSearch;
+  });
+
   return (
     <>
       {/* Hero banner */}
