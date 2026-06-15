@@ -45,41 +45,41 @@ export default function Home() {
       </div>
 
       {/* Stats */}
-      <div className="border-b border-gray-100 bg-white px-6 py-8">
+      <div className="border-b border-gray-100 dark:border-white/10 bg-white dark:bg-zinc-950 px-6 py-8">
         <div className="mx-auto flex max-w-2xl items-center justify-center gap-16">
           {stats.map(({ value, label }) => (
             <div key={label} className="text-center">
-              <div className="text-3xl font-bold text-gray-900">{value}</div>
-              <div className="mt-0.5 text-xs text-gray-500">{label}</div>
+              <div className="text-3xl font-bold text-gray-900 dark:text-white">{value}</div>
+              <div className="mt-0.5 text-xs text-gray-500 dark:text-zinc-400">{label}</div>
             </div>
           ))}
         </div>
       </div>
 
       {/* Featured courses */}
-      <div className="bg-gray-50 px-6 py-16">
+      <div className="bg-gray-50 dark:bg-zinc-900 px-6 py-16">
         <div className="mx-auto max-w-6xl">
           <div className="mb-8 flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-gray-900">Featured courses</h2>
-            <Link href="/courses" className="text-sm font-semibold text-indigo-600 hover:underline">View all →</Link>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Featured courses</h2>
+            <Link href="/courses" className="text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">View all →</Link>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {courses.slice(0, 3).map((course) => (
               <Link key={course.id} href={`/courses/${course.id}`}
-                className="group rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all">
+                className="group rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-zinc-950 p-5 shadow-sm hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-500/30 transition-all">
                 <div className="mb-3 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-base font-bold text-indigo-600">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900/40 text-base font-bold text-indigo-600 dark:text-indigo-400">
                     {course.title[0]}
                   </div>
-                  <span className="font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors text-sm leading-snug">
+                  <span className="font-semibold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors text-sm leading-snug">
                     {course.title}
                   </span>
                 </div>
                 <div className="mb-3 flex gap-1.5">
                   <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${tagColors[course.tag]}`}>{course.tag}</span>
                 </div>
-                <p className="text-xs leading-relaxed text-gray-500 line-clamp-2">{course.description}</p>
-                <div className="mt-3 border-t border-gray-100 pt-3 text-xs text-gray-400">
+                <p className="text-xs leading-relaxed text-gray-500 dark:text-zinc-400 line-clamp-2">{course.description}</p>
+                <div className="mt-3 border-t border-gray-100 dark:border-white/10 pt-3 text-xs text-gray-400 dark:text-zinc-500">
                   {course.lessons.length} lessons · {course.duration}
                 </div>
               </Link>
@@ -89,15 +89,15 @@ export default function Home() {
       </div>
 
       {/* Features */}
-      <div className="bg-white px-6 py-16">
+      <div className="bg-white dark:bg-zinc-950 px-6 py-16">
         <div className="mx-auto max-w-5xl">
-          <h2 className="mb-10 text-center text-2xl font-bold text-gray-900">Why VeriLearn?</h2>
+          <h2 className="mb-10 text-center text-2xl font-bold text-gray-900 dark:text-white">Why VeriLearn?</h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {features.map(({ icon, title, desc }) => (
-              <div key={title} className="rounded-xl border border-gray-200 bg-gray-50 p-6">
+              <div key={title} className="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-zinc-900 p-6">
                 <div className="mb-3 text-2xl text-indigo-500">{icon}</div>
-                <h3 className="mb-1.5 font-semibold text-gray-900">{title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
+                <h3 className="mb-1.5 font-semibold text-gray-900 dark:text-white">{title}</h3>
+                <p className="text-sm text-gray-500 dark:text-zinc-400 leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>
@@ -115,14 +115,14 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white px-6 py-12">
+      <footer className="border-t border-gray-200 dark:border-white/10 bg-white dark:bg-zinc-950 px-6 py-12">
         <div className="mx-auto max-w-6xl grid grid-cols-2 gap-8 sm:grid-cols-4">
           <div>
             <div className="flex items-center gap-2 mb-4">
               <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-600 text-xs font-bold text-white">V</span>
-              <span className="font-bold text-gray-900">VeriLearn</span>
+              <span className="font-bold text-gray-900 dark:text-white">VeriLearn</span>
             </div>
-            <p className="text-xs text-gray-500">The verified learning platform for developers.</p>
+            <p className="text-xs text-gray-500 dark:text-zinc-400">The verified learning platform for developers.</p>
           </div>
           {[
             { title: "Platform", links: [["Courses", "/courses"], ["Dashboard", "/dashboard"]] },
@@ -130,18 +130,18 @@ export default function Home() {
             { title: "Company", links: [["About", "#"], ["Blog", "#"], ["Careers", "#"]] },
           ].map(({ title, links }) => (
             <div key={title}>
-              <h3 className="mb-3 text-xs font-semibold uppercase tracking-widest text-gray-400">{title}</h3>
+              <h3 className="mb-3 text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-zinc-500">{title}</h3>
               <ul className="space-y-2">
                 {links.map(([label, href]) => (
                   <li key={label}>
-                    <Link href={href} className="text-sm text-gray-500 hover:text-gray-900 transition-colors">{label}</Link>
+                    <Link href={href} className="text-sm text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white transition-colors">{label}</Link>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
         </div>
-        <div className="mx-auto mt-10 max-w-6xl border-t border-gray-100 pt-6 text-xs text-gray-400">
+        <div className="mx-auto mt-10 max-w-6xl border-t border-gray-100 dark:border-white/10 pt-6 text-xs text-gray-400 dark:text-zinc-500">
           © 2026 VeriLearn. All rights reserved.
         </div>
       </footer>

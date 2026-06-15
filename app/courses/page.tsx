@@ -207,14 +207,14 @@ export default function CoursesPage() {
         {/* Summary + CTA row */}
         <div className="mb-8 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-xl">
-            <h2 className="text-lg font-bold text-gray-900">List of courses</h2>
-            <p className="mt-1 text-sm text-gray-500 leading-relaxed">
+            <h2 className="text-lg font-bold text-gray-900 dark:text-white">List of courses</h2>
+            <p className="mt-1 text-sm text-gray-500 dark:text-zinc-400 leading-relaxed">
               Structured, practitioner-built courses covering TypeScript, Next.js, CI/CD, load testing, and more.
               Browse by level or topic using the filters.
             </p>
           </div>
-          <div className="shrink-0 rounded-xl border border-gray-200 bg-white p-5 shadow-sm text-center w-full sm:w-64">
-            <p className="text-sm font-semibold text-gray-800">Start learning for free today.</p>
+          <div className="shrink-0 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-zinc-900 p-5 shadow-sm text-center w-full sm:w-64">
+            <p className="text-sm font-semibold text-gray-800 dark:text-white">Start learning for free today.</p>
             <Link href="/signup"
               className="mt-3 block w-full rounded-lg bg-indigo-600 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 transition-colors">
               Create free account
