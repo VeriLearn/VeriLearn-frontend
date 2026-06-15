@@ -24,6 +24,8 @@ export default function LessonPage({ params }: { params: Promise<{ id: string; l
     <div className="mx-auto w-full max-w-2xl px-6 py-12">
       {/* Breadcrumb */}
       <div className="mb-6 flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
+        <Link href="/" className="hover:text-zinc-900 dark:hover:text-white">Home</Link>
+        <span>/</span>
         <Link href="/courses" className="hover:text-zinc-900 dark:hover:text-white">Courses</Link>
         <span>/</span>
         <Link href={`/courses/${course.id}`} className="hover:text-zinc-900 dark:hover:text-white">{course.title}</Link>
@@ -33,7 +35,8 @@ export default function LessonPage({ params }: { params: Promise<{ id: string; l
 
       {/* Lesson progress indicator */}
       <p className="text-xs text-zinc-400 mb-2">Lesson {lessonIndex + 1} of {course.lessons.length}</p>
-      <h1 className="text-2xl font-bold text-zinc-900 dark:text-white mb-6">{lesson.title}</h1>
+      <h1 className="text-2xl font-bold text-zinc-900 dark:text-white mb-2">{lesson.title}</h1>
+      <span className="inline-block mb-6 rounded-full bg-zinc-100 dark:bg-zinc-800 px-2.5 py-0.5 text-xs text-zinc-500 dark:text-zinc-400">{lesson.duration}</span>
 
       {/* Content */}
       <div className="rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-950 p-6 mb-8">
